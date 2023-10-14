@@ -1,7 +1,7 @@
 export default function Note(props) {
     return(
-        <div className="p-1">
-            <p className="text-white font-sans">{props.note}</p>
-        </div>
+        <button class="flex justify-center overflow-hidden bg-slate-500 w-4/5 hover:bg-slate-700 py-2 px-4 rounded">
+            <p className="text-white font-poppins">{props.note}</p>
+        </button>
     );
 }
