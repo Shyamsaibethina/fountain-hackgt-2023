@@ -1,4 +1,5 @@
 import NotesViewer from "./components/NotesViewer";
+import PdfViewer from "./components/PdfViewer";
 import PointQuizViewer from "./components/PointQuizViewer";
 
 function App() {
@@ -16,9 +17,10 @@ function App() {
       <div className="w-1/6" >
         <NotesViewer notes={randNotes}/>
       </div>
-      <div className="w-7/12" >
+      <div className="w-1/2" >
+        <PdfViewer />
       </div>
-      <div className="w-1/4 bg-slate-600" >
+      <div className="w-1/3 bg-slate-600" >
         <PointQuizViewer />
       </div>
       </div>
