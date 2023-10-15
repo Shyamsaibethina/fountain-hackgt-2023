@@ -42,7 +42,7 @@ function App() {
       <div className="w-screen"> 
       <div className="bg-slate-500 p-4">
           <nav className="flex items-center justify-center">
-            <p className="text-white font-poppins text-4xl font-bold">Notable</p>
+            <p className="text-white font-poppins text-4xl font-bold">Fountain</p>
           </nav>
         </div>
       </div>
