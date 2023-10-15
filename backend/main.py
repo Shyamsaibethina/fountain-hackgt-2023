@@ -17,8 +17,8 @@ import os
 import json
 
 
-OPENAI_API_KEY = "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"
-PINECONE_KEY = "caaa090b-b803-4355-aeab-83a410be7b27"
+OPENAI_API_KEY = "..."
+PINECONE_KEY = "..."
 pinecone.init(api_key=PINECONE_KEY, environment="gcp-starter")
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
