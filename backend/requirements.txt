@@ -1,0 +1,9 @@
+functions-framework==3.*
+pinecone-client
+tiktoken
+langchain
+openai
+PyPDF2
+google-cloud
+google-cloud-storage
+pyPdf
