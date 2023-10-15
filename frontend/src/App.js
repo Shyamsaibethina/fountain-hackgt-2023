@@ -16,20 +16,15 @@ const firebaseConfig = {
   appId: "1:843484177339:web:b8f62ca7e3ecb6242b1a9e",
   measurementId: "G-PNXH8CDYPJ"
 };
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-// Get a reference to the storage service, which is used to create references in your storage bucket
 const storage = getStorage();
 
 function App() {
   const [notes, setNotes] = useState([]);
   const [currNote, setCurrNote] = useState("");
-  let randNotes = ["Math", "Engl", "Scienc"];
 
   const notesRef = ref(storage, 'notes');
-
-  // Find all the prefixes and items.
   
   const getNotes = async () => {
     try {
@@ -47,7 +42,7 @@ function App() {
       <div className="w-screen"> 
       <div className="bg-slate-500 p-4">
           <nav className="flex items-center justify-center">
-            <p className="text-white font-poppins text-3xl font-bold">Notable</p>
+            <p className="text-white font-poppins text-4xl font-bold">Notable</p>
           </nav>
         </div>
       </div>
@@ -59,7 +54,7 @@ function App() {
         <PdfViewer currNote={currNote} />
       </div>
       <div className="w-1/3 bg-slate-600" >
-        <PointQuizViewer />
+        <PointQuizViewer currNote={currNote} />
       </div>
       </div>
     </div>
