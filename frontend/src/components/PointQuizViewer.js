@@ -27,9 +27,12 @@ export default function PointQuizViewer(props) {
 
     const [data, setData] = useState(null);
     const [data2, setData2] = useState(null);
+    const [data3, setData3] = useState(null);
     const [score, setScore] = useState(0);
     const [questions, setQuestions] = useState([]);
     const [keyWords, setKeyWords] = useState([]);
+    const [sources, setSources] = useState([]);
+
 
     if (props.currNote !== "") {
         let noteRef = ref(storage, props.currNote.slice(0, props.currNote.length - 4) + ".json");
@@ -59,6 +62,20 @@ export default function PointQuizViewer(props) {
         }).catch((error) => {
             // Handle any errors
         });
+
+        noteRef = ref(storage, props.currNote.slice(0, props.currNote.length - 4) + "-key-sources" + ".json");
+        getDownloadURL(noteRef).then((url) => {
+            const xhr = new XMLHttpRequest();
+            xhr.responseType = 'blob';
+            xhr.onload = (event) => {
+            const blob = xhr.response;
+            };
+            xhr.open('GET', url);
+            xhr.send();
+            setData3(url);
+        }).catch((error) => {
+            // Handle any errors
+        });
     }
 
     let lst = "";
@@ -79,14 +96,24 @@ export default function PointQuizViewer(props) {
     async function fetchKeys() {
         const response = await fetch(data2);
         lst = (await response.text()).replace("```json\n", "").replaceAll("```", "").replace("[", "").replace("]", "").replaceAll(/^\n+|\n+$/g, '').replaceAll("\t", "").replaceAll("\"", "");
-        console.log(lst)
         lst2 = lst.split(",\n");
         setKeyWords(lst2);
-        console.log(lst2);
     }
     useEffect(() => {
         fetchKeys();
     }, [data2]);
+
+    lst = "";
+    lst2 = [];
+    async function fetchSources() {
+        const response = await fetch(data3);
+        lst = (await response.text()).replace("```json\n", "").replaceAll("```", "").replace("[", "").replace("]", "");
+        lst2 = lst.split("',");
+        setSources(lst2);
+    }
+    useEffect(() => {
+        fetchSources();
+    }, [data3]);
     return (
         <div className="h-[calc(100vh_-_65px)] overflow-scroll">
             <div className="flex justify-center py-2">
@@ -102,8 +129,11 @@ export default function PointQuizViewer(props) {
                     <QuizQuestion question={question + " }"} />
                 )
                 }
+                {!quizSelected ? <p className="font-poppins text-white text-lg">Sources</p> : null}
                 {!quizSelected ?
-                    <p className="text-white font-poppins text-lg">{"Score: " + score + "/" + questions.length}</p>
+                    sources.map(source =>
+                        <p className="font-poppins text-white w-4/5 text-xs">{source.replaceAll("\'", "")}</p>
+                    )
                     : null
                 }
                 {quizSelected ? <SubmitQuiz /> : null}
